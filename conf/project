@@ -1,0 +1,37 @@
+service project
+{
+	system
+		READBIOS
+		PRIVCTL
+		UMAP		# 14
+		INT86		# 20
+		PRIVCTL
+		READBIOS
+		DEVIO
+        IRQCTL
+        IOPENABLE
+		;
+	io
+        40:4	# i8254 ports
+        60		# KBC
+        64		# KBC
+        61		# port for speaker control
+        70:2    # RTC
+        ;  
+    irq
+        0		# TIMER 0 IRQ
+        1       # KBD IRQ
+        8       # RTC
+        12      # AUX/MOUSE IRQ
+        ; 
+	ipc
+		SYSTEM		# to retrieve system information
+        	rs		# for service initialization
+	    	vm		# to map video RAM
+	    	pm		# for malloc, if needed
+	    	vfs
+		;
+	uid 
+		0
+		;
+};
